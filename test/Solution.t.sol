@@ -4,14 +4,15 @@ pragma solidity ^0.8.0;
 import { Test } from "forge-std/Test.sol";
 import { console } from "forge-std/console.sol";
 import { BillyTheBull } from "../src/BillyTheBull.sol";
-import { Protocol } from "../src/Protocol.sol";
+import { NFTOutlet } from "../src/NFTOutlet.sol";
 import { FreeNFT } from "../src/tokens/FreeNFT.sol";
 import { DeployScript } from "../script/Deploy.s.sol";
 import { Exploiter } from "./Exploiter.sol";
 
 contract BillyTheBullSolution is DeployScript, Test {
     BillyTheBull puzzle;
-    Protocol protocol;
+    NFTOutlet nftOutlet;
+    FreeNFT freeNft;
     address exploiter;
 
     function setUp() public {
@@ -20,7 +21,7 @@ contract BillyTheBullSolution is DeployScript, Test {
             address[] memory _stablecoins,
             address[] memory _nfts,
             address _puzzle,
-            address _protocol
+            address _nftOutlet
         ) = deployAllContracts();
         console.log("Contracts Deployed:");
         for (uint i = 0; i < _stablecoins.length; i++) {
@@ -30,16 +31,16 @@ contract BillyTheBullSolution is DeployScript, Test {
             console.log("NFT:", _nfts[i]);
         }
         console.log("Puzzle:", _puzzle);
-        console.log("Protocol:", _protocol);
+        console.log("NFT Outlet:", _nftOutlet);
 
         puzzle = BillyTheBull(_puzzle);
-        protocol = Protocol(_protocol);
+        nftOutlet = NFTOutlet(_nftOutlet);
+        freeNft = FreeNFT(_nfts[2]);
     }
 
     function testSolution() public {
         uint start = puzzle.generate(address(this));
 
-        FreeNFT freeNft = FreeNFT(puzzle.nfts(2));
         exploiter = address(new Exploiter());
 
         uint indexToMint = puzzle.nftPrice();

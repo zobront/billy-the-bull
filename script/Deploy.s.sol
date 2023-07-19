@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import { Script } from "forge-std/Script.sol";
 import { BillyTheBull } from "../src/BillyTheBull.sol";
-import { Protocol } from "../src/Protocol.sol";
+import { NFTOutlet } from "../src/NFTOutlet.sol";
 import { Stablecoin } from "../src/tokens/Stablecoin.sol";
 import { NFT } from "../src/tokens/NFT.sol";
 import { FreeNFT } from "../src/tokens/FreeNFT.sol";
@@ -19,10 +19,10 @@ contract DeployScript is Script {
         address[] memory stablecoins,
         address[] memory nfts,
         address puzzle,
-        address protocol
+        address nftOutlet
     ) {
         (stablecoins, nfts) = _deployTokens();
-        (puzzle, protocol) = _deployPuzzleAndProtocol(stablecoins, nfts);
+        (puzzle, nftOutlet) = _deployPuzzleAndOutlet(stablecoins, nfts);
     }
 
     function _deployTokens() internal returns (
@@ -43,13 +43,13 @@ contract DeployScript is Script {
         nfts[2] = address(new FreeNFT("Bored Warthogs", "BWYC"));
     }
 
-    function _deployPuzzleAndProtocol(
+    function _deployPuzzleAndOutlet(
         address[] memory stablecoins,
         address[] memory nfts
     ) internal returns (address, address) {
         BillyTheBull puzzle = new BillyTheBull(stablecoins, nfts);
-        Protocol protocol = puzzle.protocol();
-        return (address(puzzle), address(protocol));
+        NFTOutlet nftOutlet = puzzle.nftOutlet();
+        return (address(puzzle), address(nftOutlet));
     }
 
     // function _logAddresses(
