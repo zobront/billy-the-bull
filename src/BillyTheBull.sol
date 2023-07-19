@@ -53,6 +53,8 @@ contract BillyTheBull is IPuzzle {
         uint magicTokenId = abi.decode(d0, (uint));
 
         // send payment to nft outlet for the nft & increase price for subsequent mints
+        // @todo someone could accidentally get this by trying to transfer NFT thinking that's the answer
+        // - how do i make that fail so they actually have to understand?
         (bool s1, bytes memory d1) = address(nftOutlet).call(
             abi.encodeWithSignature("pay(address,uint256)", wallet, _incrementNFTPrice())
         );
