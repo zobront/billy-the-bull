@@ -5,7 +5,7 @@ import { Test } from "forge-std/Test.sol";
 import { console } from "forge-std/console.sol";
 import { BillyTheBull } from "../src/BillyTheBull.sol";
 import { NFTOutlet } from "../src/NFTOutlet.sol";
-import { FreeNFT } from "../src/tokens/FreeNFT.sol";
+import { BoredSlothYachtClub } from "../src/tokens/BoredSlothYachtClub.sol";
 import { DeployScript } from "../script/Deploy.s.sol";
 import { Exploiter } from "./Exploiter.sol";
 
@@ -13,7 +13,7 @@ contract BillyTheBullSolution is DeployScript, Test {
     BillyTheBull puzzle;
     NFTOutlet nftOutlet;
     address originalStablecoin;
-    FreeNFT freeNft;
+    BoredSlothYachtClub bsyc;
     address exploiter;
 
     function setUp() public {
@@ -36,7 +36,7 @@ contract BillyTheBullSolution is DeployScript, Test {
 
         puzzle = BillyTheBull(_puzzle);
         nftOutlet = NFTOutlet(_nftOutlet);
-        freeNft = FreeNFT(_nfts[2]);
+        bsyc = BoredSlothYachtClub(_nfts[1]);
         originalStablecoin = _stablecoins[0];
     }
 
@@ -47,8 +47,8 @@ contract BillyTheBullSolution is DeployScript, Test {
         exploiter = address(new Exploiter(tokenId1, tokenId2));
 
         uint indexToMint = puzzle.nftPrice();
-        freeNft.mint(exploiter, indexToMint);
-        freeNft.mint(exploiter, indexToMint + 1e18);
+        bsyc.mint(exploiter, indexToMint);
+        bsyc.mint(exploiter, indexToMint + 1e18);
 
         uint solution = uint160(exploiter);
         bool success = puzzle.verify(puzzle.generate(address(this)), solution);
@@ -63,8 +63,8 @@ contract BillyTheBullSolution is DeployScript, Test {
             exploiter = address(new Exploiter(tokenId1, tokenId2));
 
             uint indexToMint = puzzle.nftPrice();
-            freeNft.mint(exploiter, indexToMint);
-            freeNft.mint(exploiter, indexToMint + 1e18);
+            bsyc.mint(exploiter, indexToMint);
+            bsyc.mint(exploiter, indexToMint + 1e18);
 
             uint solution = uint160(exploiter);
             bool success = puzzle.verify(puzzle.generate(address(this)), solution);
@@ -82,8 +82,8 @@ contract BillyTheBullSolution is DeployScript, Test {
             exploiter = address(new Exploiter(tokenId1, tokenId2));
 
             uint indexToMint = puzzle.nftPrice();
-            freeNft.mint(exploiter, indexToMint);
-            freeNft.mint(exploiter, indexToMint + 1e18);
+            bsyc.mint(exploiter, indexToMint);
+            bsyc.mint(exploiter, indexToMint + 1e18);
 
             uint solution = uint160(exploiter);
             bool success = puzzle.verify(puzzle.generate(second), solution);

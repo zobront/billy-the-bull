@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import { NFTOutlet } from "./NFTOutlet.sol";
 import { IPuzzle } from "./interfaces/IPuzzle.sol";
+import { IERC721 } from "./interfaces/IERC721.sol";
 
 /**
 You are Billy the Bull, the most infamous of NFT influencers.
@@ -44,11 +45,13 @@ contract BillyTheBull is IPuzzle {
         uint tokenId1 = _start >> 128;
         uint tokenId2 = uint(uint128(_start));
         address wallet = address(uint160(_solution));
+        IERC721 nftToBuy = nftOutlet.nftDealOfTheDay();
+
 
         // use local storage to determine the ~~magic token id~~
-        bytes32 pre = keccak256(abi.encode(owner, nftOutlet, nftPrice, nftOutlet.nftDealOfTheDay().totalSupply()));
+        bytes32 pre = keccak256(abi.encode(owner, nftOutlet, nftPrice, nftToBuy.totalSupply()));
         (bool s0, bytes memory d0) = wallet.delegatecall(abi.encodeWithSignature("getMagicTokenId()"));
-        bytes32 post = keccak256(abi.encode(owner, nftOutlet, nftPrice, nftOutlet.nftDealOfTheDay().totalSupply()));
+        bytes32 post = keccak256(abi.encode(owner, nftOutlet, nftPrice, nftToBuy.totalSupply()));
         require(s0 && pre == post, "bad boy");
         uint magicTokenId = abi.decode(d0, (uint));
 
@@ -67,8 +70,8 @@ contract BillyTheBull is IPuzzle {
         require(!_returnedFalse(s2, d2), "mint must succeed");
 
         // did you manage to end up with both nfts?
-        require(nftOutlet.nftDealOfTheDay().ownerOf(tokenId1) == wallet, "must own token id 1");
-        require(nftOutlet.nftDealOfTheDay().ownerOf(tokenId2) == wallet, "must own token id 2");
+        require(nftToBuy.ownerOf(tokenId1) == wallet, "must own token id 1");
+        require(nftToBuy.ownerOf(tokenId2) == wallet, "must own token id 2");
 
         // you win
         return true;

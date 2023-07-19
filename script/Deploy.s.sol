@@ -5,8 +5,8 @@ import { Script } from "forge-std/Script.sol";
 import { BillyTheBull } from "../src/BillyTheBull.sol";
 import { NFTOutlet } from "../src/NFTOutlet.sol";
 import { Stablecoin } from "../src/tokens/Stablecoin.sol";
-import { NFT } from "../src/tokens/NFT.sol";
-import { FreeNFT } from "../src/tokens/FreeNFT.sol";
+import { BoredTurtleYachtClub } from "../src/tokens/BoredTurtleYachtClub.sol";
+import { BoredSlothYachtClub } from "../src/tokens/BoredSlothYachtClub.sol";
 
 contract DeployScript is Script {
     function run() public {
@@ -23,6 +23,7 @@ contract DeployScript is Script {
     ) {
         (stablecoins, nfts) = _deployTokens();
         (puzzle, nftOutlet) = _deployPuzzleAndOutlet(stablecoins, nfts);
+        BoredTurtleYachtClub(nfts[0]).initialize(nftOutlet);
     }
 
     function _deployTokens() internal returns (
@@ -30,7 +31,7 @@ contract DeployScript is Script {
         address[] memory nfts
     ){
         stablecoins = new address[](3);
-        nfts = new address[](3);
+        nfts = new address[](2);
 
         stablecoins[0] = address(new Stablecoin("USDX", "USDX"));
         stablecoins[1] = address(new Stablecoin("USDY", "USDY"));
@@ -38,9 +39,8 @@ contract DeployScript is Script {
         // stablecoins[0] = 0x6B175474E89094C44Da98b954EedeAC495271d0F; // DAI
         // stablecoins[1] = 0x853d955aCEf822Db058eb8505911ED77F175b99e; // FRAX
         // stablecoins[2] = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48; // USDC
-        nfts[0] = address(new NFT("Bored Turtles", "BTYC"));
-        nfts[1] = address(new NFT("Bored Sloths", "BSYC"));
-        nfts[2] = address(new FreeNFT("Bored Warthogs", "BWYC"));
+        nfts[0] = address(new BoredTurtleYachtClub());
+        nfts[1] = address(new BoredSlothYachtClub());
     }
 
     function _deployPuzzleAndOutlet(

@@ -4,13 +4,13 @@ pragma solidity ^0.8.0;
 import { BillyTheBull } from "./BillyTheBull.sol";
 import { Stablecoin } from "./tokens/Stablecoin.sol";
 import { ERC20 } from "@solmate/tokens/ERC20.sol";
-import { NFT } from "./tokens/NFT.sol";
+import { IERC721 } from "./interfaces/IERC721.sol";
 
 contract NFTOutlet {
     address immutable puzzle;
 
     ERC20 public paymentToken;
-    NFT public nftDealOfTheDay;
+    IERC721 public nftDealOfTheDay;
 
     mapping (address => uint) public deposits;
     mapping(address => bool) public validAssets;
@@ -22,7 +22,7 @@ contract NFTOutlet {
     ) {
         puzzle = msg.sender;
         paymentToken = ERC20(_paymentTokens[0]);
-        nftDealOfTheDay = NFT(_nfts[0]);
+        nftDealOfTheDay = IERC721(_nfts[0]);
 
         for (uint256 i = 0; i < _paymentTokens.length; i++) {
             validAssets[_paymentTokens[i]] = true;
