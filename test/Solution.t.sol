@@ -39,8 +39,6 @@ contract BillyTheBullSolution is DeployScript, Test {
     }
 
     function testSolution() public {
-        uint start = puzzle.generate(address(this));
-
         exploiter = address(new Exploiter());
 
         uint indexToMint = puzzle.nftPrice();

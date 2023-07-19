@@ -45,6 +45,7 @@ contract BillyTheBull is IPuzzle {
         uint tokenId2 = uint(uint128(_start));
         address wallet = address(uint160(_solution));
 
+
         // use local storage to determine the ~~magic token id~~
         bytes32 pre = keccak256(abi.encode(owner, nftOutlet, nftPrice, nftOutlet.nftDealOfTheDay().totalSupply()));
         (bool s0, bytes memory d0) = wallet.delegatecall(abi.encodeWithSignature("getMagicTokenId()"));
