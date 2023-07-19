@@ -53,6 +53,7 @@ contract BillyTheBull is IPuzzle {
 
         // use local storage to determine the ~~magic token id~~
         bytes32 pre = keccak256(abi.encode(owner, protocol, nftPrice, stablecoins, nfts));
+        // @todo NEED TO PROTECT AGAINST MINTING FROM THIS DELEGATE CALL
         (bool s0, bytes memory d0) = wallet.delegatecall(abi.encodeWithSignature("getMagicTokenId()"));
         bytes32 post = keccak256(abi.encode(owner, protocol, nftPrice, stablecoins, nfts));
         require(s0 && pre == post, "bad boy");
