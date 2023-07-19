@@ -12,6 +12,7 @@ import { Exploiter } from "./Exploiter.sol";
 contract BillyTheBullSolution is DeployScript, Test {
     BillyTheBull puzzle;
     NFTOutlet nftOutlet;
+    address originalStablecoin;
     FreeNFT freeNft;
     address exploiter;
 
@@ -36,10 +37,14 @@ contract BillyTheBullSolution is DeployScript, Test {
         puzzle = BillyTheBull(_puzzle);
         nftOutlet = NFTOutlet(_nftOutlet);
         freeNft = FreeNFT(_nfts[2]);
+        originalStablecoin = _stablecoins[0];
     }
 
     function testSolution() public {
-        exploiter = address(new Exploiter());
+        uint _start = puzzle.generate(address(this));
+        uint tokenId1 = _start >> 128;
+        uint tokenId2 = uint(uint128(_start));
+        exploiter = address(new Exploiter(tokenId1, tokenId2));
 
         uint indexToMint = puzzle.nftPrice();
         freeNft.mint(exploiter, indexToMint);
@@ -49,6 +54,45 @@ contract BillyTheBullSolution is DeployScript, Test {
         bool success = puzzle.verify(puzzle.generate(address(this)), solution);
         assertTrue(success);
     }
+
+    function testCanSolveTwice() public {
+        {
+            uint _start = puzzle.generate(address(this));
+            uint tokenId1 = _start >> 128;
+            uint tokenId2 = uint(uint128(_start));
+            exploiter = address(new Exploiter(tokenId1, tokenId2));
+
+            uint indexToMint = puzzle.nftPrice();
+            freeNft.mint(exploiter, indexToMint);
+            freeNft.mint(exploiter, indexToMint + 1e18);
+
+            uint solution = uint160(exploiter);
+            bool success = puzzle.verify(puzzle.generate(address(this)), solution);
+            assertTrue(success);
+        }
+
+        nftOutlet.changePaymentToken(originalStablecoin);
+
+        {
+            address second = makeAddr("second");
+            vm.startPrank(second);
+            uint _start = puzzle.generate(second);
+            uint tokenId1 = _start >> 128;
+            uint tokenId2 = uint(uint128(_start));
+            exploiter = address(new Exploiter(tokenId1, tokenId2));
+
+            uint indexToMint = puzzle.nftPrice();
+            freeNft.mint(exploiter, indexToMint);
+            freeNft.mint(exploiter, indexToMint + 1e18);
+
+            uint solution = uint160(exploiter);
+            bool success = puzzle.verify(puzzle.generate(second), solution);
+            assertTrue(success);
+            vm.stopPrank();
+        }
+    }
+
+    // function testFailsWithAddrZeroSolution() public {}
 
     /**
     SOLUTION:

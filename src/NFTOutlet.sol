@@ -42,15 +42,14 @@ contract NFTOutlet {
     /////////////////////////
 
     function changePaymentToken(address _newStablecoin) public {
-        require(_isPuzzleOwner(msg.sender), "not puzzle owner");
-        require(validAssets[_newStablecoin], "not allowed asset");
+        require(_isPuzzleOwner(msg.sender), "only puzzle owner");
+        require(validAssets[_newStablecoin], "no sneaky assets");
         paymentToken = ERC20(_newStablecoin);
     }
 
     function pay(address _from, uint256 _amount) public returns (bool) {
-        // require(msg.sender == address(puzzle), "only puzzle can collect");
-        // red herrings? to != 0, amount < x, etc.
-        // allow amount == 0
+        require(msg.sender == address(puzzle), "pay via puzzle");
+        require(_from != address(0), "no zero address"); // decoy because if they revert with this, mint will go to addr(0)
         try paymentToken.transferFrom(_from, address(this), _amount) returns (bool) {
             // add some unsolveable require puzzle in here to bait them
             return true;
