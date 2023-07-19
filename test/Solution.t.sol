@@ -4,22 +4,25 @@ pragma solidity ^0.8.0;
 import { Test } from "forge-std/Test.sol";
 import { console } from "forge-std/console.sol";
 import { BillyTheBull } from "../src/BillyTheBull.sol";
+import { Protocol } from "../src/Protocol.sol";
+import { FreeNFT } from "../src/tokens/FreeNFT.sol";
 import { DeployScript } from "../script/Deploy.s.sol";
 import { Exploiter } from "./Exploiter.sol";
 
 contract BillyTheBullSolution is DeployScript, Test {
     BillyTheBull puzzle;
+    Protocol protocol;
     address exploiter;
 
     function setUp() public {
+        // vm.createSelectFork("https://mainnet.infura.io/v3/fb419f740b7e401bad5bec77d0d285a5");
         (
-            address _wallet,
             address[] memory _stablecoins,
             address[] memory _nfts,
-            address _puzzle
+            address _puzzle,
+            address _protocol
         ) = deployAllContracts();
         console.log("Contracts Deployed:");
-        console.log("Wallet:", _wallet);
         for (uint i = 0; i < _stablecoins.length; i++) {
             console.log("Stablecoin:", _stablecoins[i]);
         }
@@ -27,13 +30,23 @@ contract BillyTheBullSolution is DeployScript, Test {
             console.log("NFT:", _nfts[i]);
         }
         console.log("Puzzle:", _puzzle);
+        console.log("Protocol:", _protocol);
 
         puzzle = BillyTheBull(_puzzle);
-        exploiter = address(new Exploiter());
+        protocol = Protocol(_protocol);
     }
 
     function testSolution() public {
-        uint solution = 1 << 248 | 20 << 240 | uint160(exploiter);
+        uint start = puzzle.generate(address(this));
+
+        FreeNFT freeNft = FreeNFT(puzzle.nfts(2));
+        exploiter = address(new Exploiter());
+
+        uint indexToMint = puzzle.nftPrice();
+        freeNft.mint(exploiter, indexToMint);
+        freeNft.mint(exploiter, indexToMint + 1e18);
+
+        uint solution = uint160(exploiter);
         bool success = puzzle.verify(puzzle.generate(address(this)), solution);
         assertTrue(success);
     }
