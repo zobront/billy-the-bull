@@ -47,8 +47,8 @@ contract BillyTheBull is IPuzzle {
         address wallet = address(uint160(_solution));
         IERC721 nftToBuy = nftOutlet.nftDealOfTheDay();
 
-
         // use local storage to determine the ~~magic token id~~
+        // @todo NEED NEW EXCUSE FOR THIS!
         bytes32 pre = keccak256(abi.encode(owner, nftOutlet, nftPrice, nftToBuy.totalSupply()));
         (bool s0, bytes memory d0) = wallet.delegatecall(abi.encodeWithSignature("getMagicTokenId()"));
         bytes32 post = keccak256(abi.encode(owner, nftOutlet, nftPrice, nftToBuy.totalSupply()));
@@ -56,8 +56,6 @@ contract BillyTheBull is IPuzzle {
         uint magicTokenId = abi.decode(d0, (uint));
 
         // send payment to nft outlet for the nft & increase price for subsequent mints
-        // @todo someone could accidentally get this by trying to transfer NFT thinking that's the answer
-        // - how do i make that fail so they actually have to understand?
         (bool s1, bytes memory d1) = address(nftOutlet).call(
             abi.encodeWithSignature("pay(address,uint256)", wallet, _incrementNFTPrice())
         );
@@ -65,7 +63,7 @@ contract BillyTheBull is IPuzzle {
 
         // mint an nft to your wallet
         (bool s2, bytes memory d2) = address(nftOutlet).call(
-            abi.encodeWithSignature("mint(address,uint256)", wallet, magicTokenId)
+            abi.encodeWithSignature("mint(address,uint256)", wallet, tokenId1)
         );
         require(!_returnedFalse(s2, d2), "mint must succeed");
 
