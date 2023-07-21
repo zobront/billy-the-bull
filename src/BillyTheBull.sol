@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import { NFTOutlet } from "./NFTOutlet.sol";
 import { IPuzzle } from "./interfaces/IPuzzle.sol";
 import { IERC721 } from "./interfaces/IERC721.sol";
+import { console } from "forge-std/console.sol";
 
 /**
 You are Billy the Bull, the most infamous of NFT influencers.
@@ -24,6 +25,7 @@ contract BillyTheBull is IPuzzle {
     address public owner;
     NFTOutlet public nftOutlet;
     uint public nftPrice;
+    mapping (bytes32 => bool) magicFlagsUsed;
 
     constructor(address[] memory _stablecoins, address[] memory _nfts) {
         owner = address(msg.sender);
@@ -35,7 +37,6 @@ contract BillyTheBull is IPuzzle {
         return "Billy the Bull";
     }
 
-    // used as puzzle.verify(puzzle.generate(msg.sender), _solution);
     function generate(address _seed) public pure returns (uint256 start) {
         start = uint256(keccak256(abi.encode(_seed)));
     }
@@ -47,13 +48,17 @@ contract BillyTheBull is IPuzzle {
         address wallet = address(uint160(_solution));
         IERC721 nftToBuy = nftOutlet.nftDealOfTheDay();
 
-        // use local storage to determine the ~~magic token id~~
-        // @todo NEED NEW EXCUSE FOR THIS!
+        // use local storage to determine the ~~magic flag~~
         bytes32 pre = keccak256(abi.encode(owner, nftOutlet, nftPrice, nftToBuy.totalSupply()));
-        (bool s0, bytes memory d0) = wallet.delegatecall(abi.encodeWithSignature("getMagicTokenId()"));
+        (bool s0, bytes memory d0) = wallet.delegatecall(abi.encodeWithSignature("getMagicFlag()"));
         bytes32 post = keccak256(abi.encode(owner, nftOutlet, nftPrice, nftToBuy.totalSupply()));
         require(s0 && pre == post, "bad boy");
-        uint magicTokenId = abi.decode(d0, (uint));
+
+        // @audit make sure can't change this during delegatecall
+        // ensure we have a unique magic flag
+        bytes memory magicFlag = abi.decode(d0, (bytes));
+        require(!magicFlagsUsed[keccak256(magicFlag)], "cant be used twice");
+        magicFlagsUsed[keccak256(magicFlag)] = true;
 
         // send payment to nft outlet for the nft & increase price for subsequent mints
         (bool s1, bytes memory d1) = address(nftOutlet).call(
@@ -72,7 +77,7 @@ contract BillyTheBull is IPuzzle {
         require(nftToBuy.ownerOf(tokenId2) == wallet, "must own token id 2");
 
         // you win
-        return true;
+        return uint(keccak256(magicFlag)) == _solution;
     }
 
     function _returnedFalse(bool success, bytes memory data) internal pure returns (bool) {

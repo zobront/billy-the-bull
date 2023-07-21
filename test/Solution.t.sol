@@ -44,13 +44,15 @@ contract BillyTheBullSolution is DeployScript, Test {
         uint _start = puzzle.generate(address(this));
         uint tokenId1 = _start >> 128;
         uint tokenId2 = uint(uint128(_start));
-        exploiter = address(new Exploiter(tokenId1, tokenId2));
+
+        exploiter = address(new Exploiter{salt: 0}(tokenId1, tokenId2));
+        uint solution = uint(keccak256(getMagicFlag(tokenId1, tokenId2)));
+        assertEq(exploiter, address(uint160(solution)));
 
         uint indexToMint = puzzle.nftPrice();
         bsyc.mint(exploiter, indexToMint);
         bsyc.mint(exploiter, indexToMint + 1e18);
 
-        uint solution = uint160(exploiter);
         bool success = puzzle.verify(puzzle.generate(address(this)), solution);
         assertTrue(success);
     }
@@ -90,6 +92,13 @@ contract BillyTheBullSolution is DeployScript, Test {
             assertTrue(success);
             vm.stopPrank();
         }
+    }
+
+    function getMagicFlag(uint t1, uint t2) public returns (bytes memory solution) {
+        bytes32 salt = 0;
+        bytes memory bytecode = type(Exploiter).creationCode;
+        bytecode = abi.encodePacked(bytecode, abi.encode(t1, t2));
+        solution = abi.encodePacked(bytes1(0xff), address(this), salt, keccak256(bytecode));
     }
 
     // function testFailsWithAddrZeroSolution() public {}
