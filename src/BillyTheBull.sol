@@ -16,7 +16,7 @@ There's just one problem: you're broke.
 With just one more trade, you'd certainly earn it all back.
 But your mom is done lending you money, and there's nowhere left to turn.
 
-A new mint has just opened up on The NFT Outlet. It's cheap, and you _know_ it'll be a hit.
+A new mint has just opened up on The NFT Outlet. You _know_ it'll be a hit.
 Your strategy is clear: You need 2 NFTs. Sell one. Keep the other for your collection.
 If only there were a way to get them without paying...
 */
@@ -28,7 +28,7 @@ contract BillyTheBull is IPuzzle {
     constructor(address[] memory _stablecoins, address[] memory _nfts) {
         owner = address(msg.sender);
         nftOutlet = new NFTOutlet(_stablecoins, _nfts);
-        nftPrice = 1e18;
+        nftPrice = 1000e18;
     }
 
     function name() public pure returns (string memory) {

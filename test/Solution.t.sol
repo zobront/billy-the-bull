@@ -17,7 +17,7 @@ contract BillyTheBullSolution is DeployScript, Test {
     address exploiter;
 
     function setUp() public {
-        // vm.createSelectFork("https://mainnet.infura.io/v3/fb419f740b7e401bad5bec77d0d285a5");
+        vm.createSelectFork("https://mainnet.infura.io/v3/fb419f740b7e401bad5bec77d0d285a5");
         (
             address[] memory _stablecoins,
             address[] memory _nfts,
@@ -46,7 +46,7 @@ contract BillyTheBullSolution is DeployScript, Test {
         uint tokenId1 = _start >> 128;
         uint tokenId2 = uint(uint128(_start));
 
-        exploiter = address(new Exploiter{salt: salt}(tokenId1, tokenId2, salt));
+        exploiter = address(new Exploiter{salt: salt}(tokenId1, tokenId2, salt, address(puzzle), address(bsyc)));
         uint solution = uint(keccak256(getMagicFlag(tokenId1, tokenId2, salt)));
         assertEq(exploiter, address(uint160(solution)));
 
@@ -103,7 +103,7 @@ contract BillyTheBullSolution is DeployScript, Test {
 
     function getMagicFlag(uint t1, uint t2, bytes32 salt) public view returns (bytes memory solution) {
         bytes memory bytecode = type(Exploiter).creationCode;
-        bytecode = abi.encodePacked(bytecode, abi.encode(t1, t2, salt));
+        bytecode = abi.encodePacked(bytecode, abi.encode(t1, t2, salt, puzzle, bsyc));
         solution = abi.encodePacked(bytes1(0xff), address(this), salt, keccak256(bytecode));
     }
 
