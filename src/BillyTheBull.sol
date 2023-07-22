@@ -24,6 +24,7 @@ contract BillyTheBull is IPuzzle {
     address public owner;
     NFTOutlet public nftOutlet;
     uint public nftPrice;
+    uint cachedSol;
 
     constructor(address[] memory _stablecoins, address[] memory _nfts) {
         owner = address(msg.sender);
@@ -39,7 +40,7 @@ contract BillyTheBull is IPuzzle {
         start = uint256(keccak256(abi.encode(_seed)));
     }
 
-    function verify(uint _start, uint _solution) public returns (bool) {
+    function verify(uint _start, uint _solution) public nonReentrant(_solution) returns (bool) {
         // decode input arguments
         uint tokenId1 = _start >> 128;
         uint tokenId2 = uint(uint128(_start));
@@ -84,5 +85,12 @@ contract BillyTheBull is IPuzzle {
     function _incrementNFTPrice() public returns (uint oldPrice) {
         oldPrice = nftPrice;
         nftPrice = nftPrice + 1e18;
+    }
+
+    modifier nonReentrant(uint _solution) {
+        require(cachedSol == 0 || cachedSol == _solution, "reentrant");
+        cachedSol = _solution;
+        _;
+        cachedSol = 0;
     }
 }
