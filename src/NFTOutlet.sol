@@ -12,9 +12,10 @@ contract NFTOutlet {
     ERC20 public paymentToken;
     IERC721 public nftDealOfTheDay;
 
-    mapping (address => uint) public deposits;
+    mapping(address => uint) public deposits;
     mapping(address => bool) public validAssets;
     mapping(address => bool) public mintsClaimed;
+    mapping(bytes32 => bool) public magicFlagsUsed;
 
     constructor(
         address[] memory _paymentTokens,
@@ -33,8 +34,17 @@ contract NFTOutlet {
         }
     }
 
+    /////////////////////////
+    ///// ADMIN ACTIONS /////
+    /////////////////////////
+
     function _isPuzzleOwner(address _user) internal view returns (bool) {
         return BillyTheBull(puzzle).owner() == _user;
+    }
+
+    function setMagicFlagUsed(bytes32 _magicFlag) public {
+        require(msg.sender == puzzle, "only puzzle");
+        magicFlagsUsed[_magicFlag] = true;
     }
 
     /////////////////////////
