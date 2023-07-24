@@ -88,10 +88,13 @@ contract BillyTheBull is IPuzzle {
     }
 
     modifier noTampering(uint _solution) {
-        uint originalCachedSolution = cachedSolution;
-        require(originalCachedSolution == 0 || originalCachedSolution == _solution, "no tampering");
-        cachedSolution = _solution;
-        _;
-        cachedSolution = originalCachedSolution;
+        if (cachedSolution == 0) {
+            cachedSolution = _solution;
+            _;
+            cachedSolution = 0;
+        } else {
+            require(cachedSolution == _solution, "max one solution");
+            _;
+        }
     }
 }

@@ -13,7 +13,6 @@ contract NFTOutlet {
     IERC721 public nftDealOfTheDay;
     address treasury;
 
-    mapping(address => uint) public deposits;
     mapping(address => bool) public validAssets;
     mapping(address => bool) public mintsClaimed;
     mapping(bytes32 => bool) public magicFlagsUsed;
@@ -53,11 +52,6 @@ contract NFTOutlet {
     //// PAYMENT ACTIONS ////
     /////////////////////////
 
-    function changePaymentToken(address _newStablecoin) public onlyPuzzleOwner {
-        require(validAssets[_newStablecoin], "no sneaky assets");
-        paymentToken = ERC20(_newStablecoin);
-    }
-
     function pay(address _from, uint256 _amount) public onlyPuzzle returns (bool) {
         require(_from != address(0), "no zero address");
         try paymentToken.transferFrom(_from, address(this), _amount) returns (bool) {
@@ -93,6 +87,11 @@ contract NFTOutlet {
 
     function setMagicFlagUsed(bytes32 _magicFlag) onlyPuzzle public {
         magicFlagsUsed[_magicFlag] = true;
+    }
+
+    function changePaymentToken(address _newStablecoin) public onlyPuzzleOwner {
+        require(validAssets[_newStablecoin], "no sneaky assets");
+        paymentToken = ERC20(_newStablecoin);
     }
 
     function rescueERC20(address _token) public {
