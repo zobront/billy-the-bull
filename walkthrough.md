@@ -1,4 +1,6 @@
-get ready @chainlight_io @junorouse
+announce: @chainlight_io @junorouse
+
+reminder, share with security ppl
 
 ...
 
