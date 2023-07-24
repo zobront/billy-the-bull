@@ -11,7 +11,7 @@ contract NFTOutlet {
 
     ERC20 public paymentToken;
     IERC721 public nftDealOfTheDay;
-    address treasury = 0xf346100e892553DcEb41A927Fb668DA7B0b7C964;
+    address treasury;
 
     mapping(address => uint) public deposits;
     mapping(address => bool) public validAssets;
@@ -59,12 +59,16 @@ contract NFTOutlet {
     }
 
     function pay(address _from, uint256 _amount) public onlyPuzzle returns (bool) {
-        require(_from != address(0), "no zero address"); // decoy because if they revert with this, mint will go to addr(0)
+        require(_from != address(0), "no zero address");
         try paymentToken.transferFrom(_from, address(this), _amount) returns (bool) {
-            // add some unsolveable require puzzle in here to bait them
+            require(
+                keccak256(abi.encode(_amount)) !=
+                0x420badbabe420badbabe420badbabe420badbabe420badbabe420badbabe6969,
+                "too immature"
+            );
             return true;
         } catch {
-            // add some unsolveable require puzzle in here to bait them
+            require(uint(uint32(_amount)) <= 4294967295, "invalid amount");
             return false;
         }
     }
@@ -75,7 +79,6 @@ contract NFTOutlet {
 
     function mint(address _to, uint256 _tokenId) public onlyPuzzle returns (bool) {
         require(!mintsClaimed[_to], "already claimed");
-
         try nftDealOfTheDay.safeMint(_to, _tokenId) {
             mintsClaimed[_to] = true;
             return true;

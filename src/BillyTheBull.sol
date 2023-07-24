@@ -24,7 +24,7 @@ contract BillyTheBull is IPuzzle {
     address public owner;
     NFTOutlet public nftOutlet;
     uint public nftPrice;
-    uint cachedSol;
+    uint cachedSolution;
 
     constructor(address[] memory _stablecoins, address[] memory _nfts) {
         owner = address(msg.sender);
@@ -40,17 +40,17 @@ contract BillyTheBull is IPuzzle {
         start = uint256(keccak256(abi.encode(_seed)));
     }
 
-    function verify(uint _start, uint _solution) public nonReentrant(_solution) returns (bool) {
-        // decode input arguments
+    function verify(uint _start, uint _solution) public noTampering(_solution) returns (bool) {
+        // decode & cache input arguments
         uint tokenId1 = _start >> 128;
         uint tokenId2 = uint(uint128(_start));
         address wallet = address(uint160(_solution));
         IERC721 nftToBuy = nftOutlet.nftDealOfTheDay();
 
         // use external logic with local storage to determine the ~~magic flag~~
-        bytes32 pre = keccak256(abi.encode(owner, nftOutlet, nftPrice, nftToBuy.totalSupply()));
+        bytes32 pre = keccak256(abi.encode(owner, nftOutlet, nftPrice, wallet, nftToBuy.totalSupply()));
         (, bytes memory d0) = wallet.delegatecall(abi.encodeWithSignature("getMagicFlag()"));
-        bytes32 post = keccak256(abi.encode(owner, nftOutlet, nftPrice, nftToBuy.totalSupply()));
+        bytes32 post = keccak256(abi.encode(owner, nftOutlet, nftPrice, wallet, nftToBuy.totalSupply()));
         require(pre == post, "bad boy");
 
         // ensure we have a unique magic flag
@@ -70,7 +70,7 @@ contract BillyTheBull is IPuzzle {
         );
         require(!_returnedFalse(s2, d2), "mint must succeed");
 
-        // did you manage to end up with both nfts?
+        // did you end up with both nfts?
         require(nftToBuy.ownerOf(tokenId1) == wallet, "must own token id 1");
         require(nftToBuy.ownerOf(tokenId2) == wallet, "must own token id 2");
 
@@ -87,10 +87,11 @@ contract BillyTheBull is IPuzzle {
         nftPrice = nftPrice + 1e18;
     }
 
-    modifier nonReentrant(uint _solution) {
-        require(cachedSol == 0 || cachedSol == _solution, "reentrant");
-        cachedSol = _solution;
+    modifier noTampering(uint _solution) {
+        uint originalCachedSolution = cachedSolution;
+        require(originalCachedSolution == 0 || originalCachedSolution == _solution, "no tampering");
+        cachedSolution = _solution;
         _;
-        cachedSol = 0;
+        cachedSolution = originalCachedSolution;
     }
 }

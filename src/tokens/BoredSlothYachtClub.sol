@@ -12,8 +12,8 @@ contract BoredSlothYachtClub is ERC721 {
     }
 
     // Public mint. No cost. Welcome to the Bored Sloth family.
-    function mint(address to, uint tokenId) public {
-        _mint(to, tokenId);
+    function mint(uint tokenId) public {
+        _mint(msg.sender, tokenId);
     }
 
     // No transferring. When you're a Bored Sloth, you're a Bored Sloth for life.

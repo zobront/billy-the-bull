@@ -9,6 +9,7 @@ import { BoredTurtleYachtClub } from "../src/tokens/BoredTurtleYachtClub.sol";
 import { BoredSlothYachtClub } from "../src/tokens/BoredSlothYachtClub.sol";
 
 contract DeployScript is Script {
+    address TREASURY = 0xf346100e892553DcEb41A927Fb668DA7B0b7C964;
     function run() public {
         vm.startBroadcast();
         deployAllContracts();
