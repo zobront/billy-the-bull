@@ -12,7 +12,6 @@ import { Exploiter } from "./Exploiter.sol";
 contract BillyTheBullSolution is DeployScript, Test {
     BillyTheBull puzzle;
     NFTOutlet nftOutlet;
-    address originalStablecoin;
     BoredSlothYachtClub bsyc;
     address exploiter;
     bool logAddresses = false;
@@ -31,7 +30,6 @@ contract BillyTheBullSolution is DeployScript, Test {
         puzzle = BillyTheBull(_puzzle);
         nftOutlet = NFTOutlet(_nftOutlet);
         bsyc = BoredSlothYachtClub(_nfts[1]);
-        originalStablecoin = _stablecoins[0];
     }
 
     function testSolution() public {
