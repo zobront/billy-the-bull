@@ -9,6 +9,5 @@ WIP Curta challenge for 7/28.
 - [x] write solution test
 - [x] make storyline work
 - [x] write functional v1
+- [x] decoys, gas optimizations, touch ups
 - [ ] security review to ensure no easier exploit paths
-- [ ] decoys, gas optimizations, touch ups
-- [ ] create art
