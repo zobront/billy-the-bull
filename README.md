@@ -1,6 +1,6 @@
 # Billy The Bull
 
-WIP Curta challenge for 7/28.
+WIP Curta challenge for 8/4.
 
 ## Todo
 
