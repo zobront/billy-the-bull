@@ -26,10 +26,15 @@ contract BillyTheBull is IPuzzle {
     uint public nftPrice;
     uint cachedSolution;
 
-    constructor(address[] memory _stablecoins, address[] memory _nfts) {
+    constructor(uint _nftPrice) {
         owner = address(msg.sender);
-        nftOutlet = new NFTOutlet(_stablecoins, _nfts);
-        nftPrice = 1000e18;
+        nftPrice = _nftPrice;
+    }
+
+    function initialize(address _nftOutlet) external {
+        require(msg.sender == owner, "only owner");
+        require(address(nftOutlet) == address(0), "already initialized");
+        nftOutlet = NFTOutlet(_nftOutlet);
     }
 
     function name() public pure returns (string memory) {

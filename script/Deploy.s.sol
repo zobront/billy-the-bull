@@ -10,6 +10,7 @@ import { BoredSlothYachtClub } from "../src/tokens/BoredSlothYachtClub.sol";
 
 contract DeployScript is Script {
     address TREASURY = 0xf346100e892553DcEb41A927Fb668DA7B0b7C964;
+
     function run() public {
         vm.startBroadcast();
         deployAllContracts();
@@ -23,7 +24,9 @@ contract DeployScript is Script {
         address nftOutlet
     ) {
         (stablecoins, nfts) = _deployTokens();
-        (puzzle, nftOutlet) = _deployPuzzleAndOutlet(stablecoins, nfts);
+        puzzle = _deployPuzzle();
+        nftOutlet = _deployNftOutlet(puzzle, stablecoins, nfts);
+        BillyTheBull(puzzle).initialize(nftOutlet);
         BoredTurtleYachtClub(nfts[0]).initialize(nftOutlet);
     }
 
@@ -44,13 +47,16 @@ contract DeployScript is Script {
         nfts[1] = address(new BoredSlothYachtClub());
     }
 
-    function _deployPuzzleAndOutlet(
+    function _deployNftOutlet(
+        address puzzle,
         address[] memory stablecoins,
         address[] memory nfts
-    ) internal returns (address, address) {
-        BillyTheBull puzzle = new BillyTheBull(stablecoins, nfts);
-        NFTOutlet nftOutlet = puzzle.nftOutlet();
-        return (address(puzzle), address(nftOutlet));
+    ) internal returns (address) {
+        return address(new NFTOutlet(puzzle, stablecoins, nfts));
+    }
+
+    function _deployPuzzle() internal returns (address) {
+        return address(new BillyTheBull(1000e18));
     }
 
     // function _logAddresses(

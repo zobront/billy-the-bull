@@ -18,10 +18,11 @@ contract NFTOutlet {
     mapping(bytes32 => bool) public magicFlagsUsed;
 
     constructor(
+        address _puzzle,
         address[] memory _paymentTokens,
         address[] memory _nfts
     ) {
-        puzzle = msg.sender;
+        puzzle = _puzzle;
         paymentToken = ERC20(_paymentTokens[0]);
         nftDealOfTheDay = IERC721(_nfts[0]);
 

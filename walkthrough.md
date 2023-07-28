@@ -28,15 +28,15 @@ We see that the solution is decoded into the wallet address that's used for the 
 
 This might make you think you can just pass uint256(address) as the solution. But if we use this value, there is no way to know the preimage.
 
-Fortunately, since we're decoding the solution as address(uint160(_solution)), we can pass a full 32 byte word as the solution. And if we understand how addresses are created on the EVM, we can know the preimage for this value.
+Fortunately, since we're decoding the solution as address(uint160(_solution)), we can pass a full 32 byte word as the solution. And if we understand how addresses are created on the EVM, we can find the preimage for this value.
 
 Addresses can be selected on the EVM in one of two ways:
 
-1) CREATE: Hash X, where X is the address of the creator and the nonce of the creator. Shorten to 20 bytes.
+1) CREATE: keccak256(x), where x is address of the creator + nonce of the creator. Shorten to 20 bytes.
 
-2) CREATE2: Hash X, where X is the address of the creator, the salt, and the init code. Shorten to 20 bytes.
+2) CREATE2: keccak256(x), where x is 0xff + address of the creator + salt + init code. Shorten to 20 bytes.
 
-In either case, we can use X as the magic flag, and pass the full 32 byte word as our solution.
+In either case, we can use x as the magic flag, and pass the full 32 byte word as our solution.
 
 In my solution, I used CREATE2...
 
@@ -55,7 +55,7 @@ This is a perfect setup for reentrancy, because we gain control flow after we've
 
 When we reenter the second time, we already have token ID 1.
 
-If we flip the two token IDs around the second time, we'll then mint the original token ID 2, and by the time the reentered pass gets to the check, we will hold both NFTs and it will pass.
+If we flip the two token IDs around the second time, we'll then mint the original token ID 2, and by the time the reentered function call gets to the ownership check, we will hold both NFTs and it will pass.
 
 
 CHALLENGE 3: We need to use the same solution when reentering, but can't reuse it.
@@ -66,7 +66,7 @@ And, it is impossible. There's no way to do it, and no way to get around it.
 
 But, fortunately, you don't have to.
 
-The assumption is that verify() needs to pass.
+Many Curta players assume that verify() needs to pass.
 
 But this isn't required. It just returns a boolean that is used by Curta (and reverts when going through the main Curta contract).
 
@@ -84,11 +84,11 @@ This is great, except... how can you make it revert?
 If you read the function, you may think it's impossible.
 
 There are three require statements, and all are impossible to trigger:
-1) from == address(0) => this is the wallet address, so if it's address(0), it can't hold the code needed for any of this, and it's impossible to know the preimage
+1) from == address(0) => this is the wallet address, so if it's address(0), it can't hold the code needed for the steps below (and it's impossible to know the preimage)
 2) keccak256(amount) = 0x420badbabe => you would have to know the preimage of the hash
 3) uint(uint32(amount)) <= 4294967295 => if we lower to 32 bits, we can't get a value higher than max uint32
 
-But there is one way to make the function revert.
+But there is one other way to make the function revert.
 
 Try catch statements will revert if they expect a return value and none is given.
 
@@ -105,9 +105,9 @@ Some ERC20s don't, but the valid assets in NFT Outlet all conform to the spec.
 
 But what about transferFrom on ERC721s? That doesn't return anything.
 
-Since all the assets are stored in the validAssets mapping, it means that NFTs can be subbed in as paymentTokens.
+Since all the ERC20s and ERC721s are stored in the same validAssets mapping, it means that an NFT can be subbed in as the paymentToken.
 
-Since they have a transferFrom function with the same signature, if it's used, it'll revert.
+Since they have a transferFrom function with the same signature, if it's use (and doesn't revert), it'll return nothing and revert in NFTOutlet.sol.
 
 Note that the NFT transfer has to succeed for this to happen (otherwise it'll revert on the call and be caught by the try catch block).
 
@@ -120,7 +120,7 @@ CHALLENGE 6: But how can you change the payment token to the NFT?
 
 The challenge begins with a very suspicious delegate call. But all the storage variables are checked after the call to ensure they match with the values before. Nothing can be changed.
 
-However, there's nothing stopping you from changing them midflight!
+However, there's nothing stopping you from changing them midflight :)
 
 This allows you to change the owner of the contract to yourself, then call `changePaymentToken()` to change it to the NFT, and then change the owner back to the original so the postflight check passes.
 
