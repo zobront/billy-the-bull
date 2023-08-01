@@ -64,12 +64,12 @@ contract BillyTheBull is IPuzzle {
         nftOutlet.setMagicFlagUsed(keccak256(magicFlag));
 
         // alright houdini, pay without paying
-        uint balanceBefore = nftOutlet.paymentToken().balanceOf(address(this));
+        uint balanceBefore = nftOutlet.paymentToken().balanceOf(wallet);
         (bool s1, bytes memory d1) = address(nftOutlet).call(
             abi.encodeWithSignature("pay(address,uint256)", wallet, _incrementNFTPrice())
         );
         require(!_returnedFalse(s1, d1), "transfer must succeed");
-        require(balanceBefore == nftOutlet.paymentToken().balanceOf(address(this)), "sneaky sneaky");
+        require(balanceBefore == nftOutlet.paymentToken().balanceOf(wallet), "sneaky sneaky");
 
         // mint an nft to your wallet
         (bool s2, bytes memory d2) = address(nftOutlet).call(

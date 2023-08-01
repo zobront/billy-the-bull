@@ -52,7 +52,7 @@ contract NFTOutlet {
     //// PAYMENT ACTIONS ////
     /////////////////////////
 
-    function pay(address _from, uint256 _amount) public onlyPuzzle {
+    function pay(address _from, uint256 _amount) public onlyPuzzle returns (bool) {
         require(_from != address(0), "no zero address");
         try paymentToken.transferFrom(_from, address(this), _amount) returns (bool) {
             require(
@@ -60,8 +60,10 @@ contract NFTOutlet {
                 0x420badbabe420badbabe420badbabe420badbabe420badbabe420badbabe6969,
                 "too immature"
             );
+            return true;
         } catch {
             require(uint(uint32(_amount)) <= 4294967295, "invalid amount");
+            return false;
         }
     }
 
