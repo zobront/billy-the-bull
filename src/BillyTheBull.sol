@@ -53,9 +53,9 @@ contract BillyTheBull is IPuzzle {
         IERC721 nftToBuy = nftOutlet.nftDealOfTheDay();
 
         // use external logic with local storage to determine the ~~magic flag~~
-        bytes32 pre = keccak256(abi.encode(owner, nftOutlet, nftPrice, wallet, nftToBuy.totalSupply()));
+        bytes32 pre = keccak256(abi.encode(owner, nftOutlet, nftPrice, cachedSolution, nftToBuy.totalSupply()));
         (, bytes memory d0) = wallet.delegatecall(abi.encodeWithSignature("getMagicFlag()"));
-        bytes32 post = keccak256(abi.encode(owner, nftOutlet, nftPrice, wallet, nftToBuy.totalSupply()));
+        bytes32 post = keccak256(abi.encode(owner, nftOutlet, nftPrice, cachedSolution, nftToBuy.totalSupply()));
         require(pre == post, "bad boy");
 
         // ensure we have a unique magic flag
@@ -66,7 +66,7 @@ contract BillyTheBull is IPuzzle {
         // alright houdini, pay without paying
         uint balanceBefore = nftOutlet.paymentToken().balanceOf(wallet);
         (bool s1, bytes memory d1) = address(nftOutlet).call(
-            abi.encodeWithSignature("pay(address,uint256)", wallet, _incrementNFTPrice())
+            abi.encodeWithSignature("pay(address,uint256)", wallet, _incrementNFTPrice(1e18))
         );
         require(!_returnedFalse(s1, d1), "transfer must succeed");
         require(balanceBefore == nftOutlet.paymentToken().balanceOf(wallet), "sneaky sneaky");
@@ -89,10 +89,10 @@ contract BillyTheBull is IPuzzle {
         return success && !abi.decode(data, (bool));
     }
 
-    // @todo need to make this take in new price
-    function _incrementNFTPrice() public returns (uint oldPrice) {
+    function _incrementNFTPrice(uint _incrementBy) public returns (uint oldPrice) {
+        require(_incrementBy < 10e18, "lets keep this affordable");
         oldPrice = nftPrice;
-        nftPrice = nftPrice + 1e18;
+        nftPrice = nftPrice + _incrementBy;
     }
 
     modifier noTampering(uint _solution) {
