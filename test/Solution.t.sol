@@ -5,15 +5,13 @@ import { Test } from "forge-std/Test.sol";
 import { console } from "forge-std/console.sol";
 import { BillyTheBull } from "../src/BillyTheBull.sol";
 import { NFTOutlet } from "../src/NFTOutlet.sol";
-import { BoredSlothYachtClub } from "../src/tokens/BoredSlothYachtClub.sol";
-import { DeployScript } from "../script/Deploy.s.sol";
+import { FreeWilly } from "../src/tokens/FreeWilly.sol";
+import { DeploymentHelpers } from "../script/DeploymentHelpers.sol";
 import { Exploiter } from "./Exploiter.sol";
-import { BadBoy } from "./BadBoy.sol";
 
-contract BillyTheBullSolution is DeployScript, Test {
+contract BillyTheBullSolution is DeploymentHelpers, Test {
     BillyTheBull puzzle;
-    NFTOutlet nftOutlet;
-    BoredSlothYachtClub bsyc;
+    FreeWilly willy;
     address exploiter;
     bool logAddresses = false;
 
@@ -29,8 +27,7 @@ contract BillyTheBullSolution is DeployScript, Test {
         if (logAddresses) _logContractAddresses(_stablecoins, _nfts, _puzzle, _nftOutlet);
 
         puzzle = BillyTheBull(_puzzle);
-        nftOutlet = NFTOutlet(_nftOutlet);
-        bsyc = BoredSlothYachtClub(_nfts[1]);
+        willy = FreeWilly(_nfts[1]);
     }
 
     function testSolution() public {
@@ -39,32 +36,59 @@ contract BillyTheBullSolution is DeployScript, Test {
         uint tokenId1 = _start >> 128;
         uint tokenId2 = uint(uint128(_start));
 
-        exploiter = address(new Exploiter{salt: salt}(tokenId1, tokenId2, salt, address(puzzle), address(bsyc)));
-        uint solution = uint(keccak256(getMagicFlag(tokenId1, tokenId2, salt, false)));
+        exploiter = address(new Exploiter{salt: salt}(tokenId1, tokenId2, salt, address(puzzle), address(willy)));
+        uint solution = uint(keccak256(getMagicFlag(tokenId1, tokenId2, salt)));
         assertEq(exploiter, address(uint160(solution)));
 
         bool success = puzzle.verify(puzzle.generate(address(this)), solution);
         assertTrue(success);
     }
 
-    function testBadBoyFails() public {
+    function testResetPaymentToken() public {
+        address tokenBefore = address(nftOutlet.paymentToken());
+        assertEq(tokenBefore, DAI);
+
         bytes32 salt = 0;
         uint _start = puzzle.generate(address(this));
         uint tokenId1 = _start >> 128;
         uint tokenId2 = uint(uint128(_start));
 
-        exploiter = address(new BadBoy{salt: salt}(tokenId1, tokenId2, salt, address(puzzle), address(bsyc)));
-        uint solution = uint(keccak256(getMagicFlag(tokenId1, tokenId2, salt, true)));
+        exploiter = address(new Exploiter{salt: salt}(tokenId1, tokenId2, salt, address(puzzle), address(willy)));
+        uint solution = uint(keccak256(getMagicFlag(tokenId1, tokenId2, salt)));
         assertEq(exploiter, address(uint160(solution)));
 
-        uint start = puzzle.generate(address(this));
-        vm.expectRevert("mint must succeed");
-        puzzle.verify(start, solution);
+        bool success = puzzle.verify(puzzle.generate(address(this)), solution);
+        assertTrue(success);
+
+        address tokenAfter = address(nftOutlet.paymentToken());
+        assertEq(tokenAfter, address(willy));
+
+        resetPaymentToken();
+
+        address tokenAfterReset = address(nftOutlet.paymentToken());
+        assertEq(tokenAfterReset, DAI);
     }
 
-    function getMagicFlag(uint t1, uint t2, bytes32 salt, bool badBoy) public view returns (bytes memory solution) {
-        bytes memory bytecode = badBoy ? type(BadBoy).creationCode : type(Exploiter).creationCode;
-        bytecode = abi.encodePacked(bytecode, abi.encode(t1, t2, salt, puzzle, bsyc));
+    // function testRegenerate() public {
+    //     uint codeSize;
+    //     address localPuzzle = address(puzzle);
+    //     console.log(localPuzzle);
+    //     assembly { codeSize := extcodesize(localPuzzle) }
+    //     assert(codeSize > 0);
+
+    //     puzzle.boom();
+    //     assembly { codeSize := extcodesize(localPuzzle) }
+    //     assertEq(codeSize, 0);
+
+    //     address newPuzzle = manager.redeploy(1000e18);
+    //     assert(newPuzzle == localPuzzle);
+    //     assembly { codeSize := extcodesize(newPuzzle) }
+    //     assert(codeSize > 0);
+    // }
+
+    function getMagicFlag(uint t1, uint t2, bytes32 salt) public view returns (bytes memory solution) {
+        bytes memory bytecode = type(Exploiter).creationCode;
+        bytecode = abi.encodePacked(bytecode, abi.encode(t1, t2, salt, puzzle, willy));
         solution = abi.encodePacked(bytes1(0xff), address(this), salt, keccak256(bytecode));
     }
 

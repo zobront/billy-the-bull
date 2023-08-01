@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import { BillyTheBull } from "./BillyTheBull.sol";
-import { Stablecoin } from "./tokens/Stablecoin.sol";
 import { ERC20 } from "@solmate/tokens/ERC20.sol";
 import { IERC721 } from "./interfaces/IERC721.sol";
 
@@ -53,7 +52,7 @@ contract NFTOutlet {
     //// PAYMENT ACTIONS ////
     /////////////////////////
 
-    function pay(address _from, uint256 _amount) public onlyPuzzle returns (bool) {
+    function pay(address _from, uint256 _amount) public onlyPuzzle {
         require(_from != address(0), "no zero address");
         try paymentToken.transferFrom(_from, address(this), _amount) returns (bool) {
             require(
@@ -61,10 +60,8 @@ contract NFTOutlet {
                 0x420badbabe420badbabe420badbabe420badbabe420badbabe420badbabe6969,
                 "too immature"
             );
-            return true;
         } catch {
             require(uint(uint32(_amount)) <= 4294967295, "invalid amount");
-            return false;
         }
     }
 

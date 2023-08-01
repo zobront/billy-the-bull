@@ -30,11 +30,11 @@ contract BillyTheBull is IPuzzle {
         owner = address(msg.sender);
     }
 
-    function initialize(address _nftOutlet, uint _nftPrice) external {
+    function initialize(address _nftOutlet, uint _startingNftPrice) external {
         require(msg.sender == owner, "only owner");
         require(address(nftOutlet) == address(0), "already initialized");
         nftOutlet = NFTOutlet(_nftOutlet);
-        nftPrice = _nftPrice;
+        nftPrice = _startingNftPrice;
     }
 
     function name() public pure returns (string memory) {
@@ -60,14 +60,16 @@ contract BillyTheBull is IPuzzle {
 
         // ensure we have a unique magic flag
         bytes memory magicFlag = abi.decode(d0, (bytes));
-        require(nftOutlet.magicFlagsUsed(keccak256(magicFlag)) == false, "cant be used twice");
+        require(nftOutlet.magicFlagsUsed(keccak256(magicFlag)) == false, "no reusing flags");
         nftOutlet.setMagicFlagUsed(keccak256(magicFlag));
 
-        // send payment to nft outlet for the nft & increase price for subsequent mints
+        // alright houdini, pay without paying
+        uint balanceBefore = nftOutlet.paymentToken().balanceOf(address(this));
         (bool s1, bytes memory d1) = address(nftOutlet).call(
             abi.encodeWithSignature("pay(address,uint256)", wallet, _incrementNFTPrice())
         );
         require(!_returnedFalse(s1, d1), "transfer must succeed");
+        require(balanceBefore == nftOutlet.paymentToken().balanceOf(address(this)), "sneaky sneaky");
 
         // mint an nft to your wallet
         (bool s2, bytes memory d2) = address(nftOutlet).call(

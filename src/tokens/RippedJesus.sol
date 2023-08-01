@@ -2,15 +2,18 @@
 pragma solidity ^0.8.0;
 
 import { ERC721 } from "@solmate/tokens/ERC721.sol";
-import { LibString } from "@solmate/utils/LibString.sol";
 
-contract BoredTurtleYachtClub is ERC721 {
+contract RippedJesus is ERC721 {
     address public nftOutlet;
     uint public totalSupply;
     string BASE_URL;
 
-    constructor() ERC721("Bored Turtle Yacht Club", "BTYC") {
-        BASE_URL = "http://boredtutles.com";
+    /////////////////////////
+    ///////// SETUP /////////
+    /////////////////////////
+
+    constructor() ERC721("Ripped Jesus", "JESUS") {
+        BASE_URL = "ipfs://QmNSiHRGDEq9cdKr7cGR5nJ1ghW1tfoqR3Mccq4h4AYHo9";
     }
 
     function initialize(address _nftOutlet) public {
@@ -18,14 +21,22 @@ contract BoredTurtleYachtClub is ERC721 {
         nftOutlet = _nftOutlet;
     }
 
+    /////////////////////////
+    //////// EXTERNAL ///////
+    /////////////////////////
+
     function safeMint(address to, uint256 tokenId) public {
-        require(msg.sender == nftOutlet, "only nftOutlet");
+        require(msg.sender == nftOutlet, "mint via nft outlet");
         _safeMint(to, tokenId);
     }
 
-    function tokenURI(uint256 tokenId) public view override returns (string memory) {
-        return string.concat(BASE_URL, LibString.toString(tokenId));
+    function tokenURI(uint256) public view override returns (string memory) {
+        return BASE_URL;
     }
+
+    /////////////////////////
+    //////// INTERNAL ///////
+    /////////////////////////
 
     function _mint(address to, uint256 id) internal override {
         super._mint(to, id);
