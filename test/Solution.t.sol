@@ -45,16 +45,9 @@ contract BillyTheBullSolution is DeployScript, Test {
 
         bool success = puzzle.verify(puzzle.generate(address(this)), solution);
         assertTrue(success);
-
-        uint codeSize;
-        address localPuzzle = address(puzzle);
-        assembly {
-            codeSize := extcodesize(localPuzzle)
-        }
-        assert(codeSize > 0);
     }
 
-    function testBadBoyDestructs() public {
+    function testBadBoyFails() public {
         bytes32 salt = 0;
         uint _start = puzzle.generate(address(this));
         uint tokenId1 = _start >> 128;
@@ -64,15 +57,9 @@ contract BillyTheBullSolution is DeployScript, Test {
         uint solution = uint(keccak256(getMagicFlag(tokenId1, tokenId2, salt, true)));
         assertEq(exploiter, address(uint160(solution)));
 
-        bool success = puzzle.verify(puzzle.generate(address(this)), solution);
-        assertTrue(success);
-
-        uint codeSize;
-        address localPuzzle = address(puzzle);
-        assembly {
-            codeSize := extcodesize(localPuzzle)
-        }
-        console.log(codeSize);
+        uint start = puzzle.generate(address(this));
+        vm.expectRevert("mint must succeed");
+        puzzle.verify(start, solution);
     }
 
     function getMagicFlag(uint t1, uint t2, bytes32 salt, bool badBoy) public view returns (bytes memory solution) {

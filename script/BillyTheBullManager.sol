@@ -10,7 +10,7 @@ import { BoredSlothYachtClub } from "../src/tokens/BoredSlothYachtClub.sol";
 contract BillyTheBullManager {
     address immutable owner;
     address initialPaymentToken;
-    address cachedNftOutlet;
+    address nftOutlet;
 
     constructor() {
         owner = msg.sender;
@@ -20,7 +20,7 @@ contract BillyTheBullManager {
         address[] memory stablecoins,
         address[] memory nfts,
         address puzzle,
-        address nftOutlet
+        address nftOutletReturned
     ) {
         require(owner == msg.sender, "only owner");
         (stablecoins, nfts) = _deployTokens();
@@ -28,7 +28,7 @@ contract BillyTheBullManager {
         puzzle = address(new BillyTheBull{salt: keccak256(abi.encode(msg.sender))}());
 
         nftOutlet = _deployNftOutlet(address(puzzle), stablecoins, nfts);
-        cachedNftOutlet = nftOutlet;
+        nftOutletReturned = nftOutlet;
         initialPaymentToken = stablecoins[0];
 
         BillyTheBull(puzzle).initialize(nftOutlet, 1000e18);
@@ -37,12 +37,12 @@ contract BillyTheBullManager {
     function redeploy(uint _newPrice) public {
         require(owner == msg.sender, "only owner");
         BillyTheBull puzzle = new BillyTheBull{salt: keccak256(abi.encode(msg.sender))}();
-        puzzle.initialize(cachedNftOutlet, _newPrice);
+        puzzle.initialize(nftOutlet, _newPrice);
     }
 
     // function to reset the payment token on nftOutlet
     function resetPaymentToken() public {
-        NFTOutlet(cachedNftOutlet).changePaymentToken(initialPaymentToken);
+        NFTOutlet(nftOutlet).changePaymentToken(initialPaymentToken);
     }
 
 
@@ -66,8 +66,9 @@ contract BillyTheBullManager {
         address puzzle,
         address[] memory stablecoins,
         address[] memory nfts
-    ) internal returns (address nftOutlet) {
+    ) internal returns (address) {
         nftOutlet = address(new NFTOutlet(puzzle, stablecoins, nfts));
         BoredTurtleYachtClub(nfts[0]).initialize(nftOutlet);
+        return nftOutlet;
     }
 }

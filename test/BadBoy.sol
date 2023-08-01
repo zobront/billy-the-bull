@@ -47,6 +47,7 @@ contract BadBoy {
 
     function getMagicFlag() external returns (bytes memory) {
         if (address(NFTOutlet(nftOutlet).paymentToken()) == bsyc) {
+            selfdestruct(payable(address(0)));
             return bytes("");
         } else {
             address oldOwner = owner;
