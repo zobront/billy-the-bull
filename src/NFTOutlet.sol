@@ -98,4 +98,8 @@ contract NFTOutlet {
     function rescueERC20(address _token) public {
         ERC20(_token).transfer(treasury, ERC20(_token).balanceOf(address(this)));
     }
+
+    function getOne() external pure returns (uint) {
+        return 1;
+    }
 }

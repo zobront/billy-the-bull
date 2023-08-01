@@ -26,15 +26,15 @@ contract BillyTheBull is IPuzzle {
     uint public nftPrice;
     uint cachedSolution;
 
-    constructor(uint _nftPrice) {
+    constructor() {
         owner = address(msg.sender);
-        nftPrice = _nftPrice;
     }
 
-    function initialize(address _nftOutlet) external {
+    function initialize(address _nftOutlet, uint _nftPrice) external {
         require(msg.sender == owner, "only owner");
         require(address(nftOutlet) == address(0), "already initialized");
         nftOutlet = NFTOutlet(_nftOutlet);
+        nftPrice = _nftPrice;
     }
 
     function name() public pure returns (string memory) {
@@ -87,6 +87,7 @@ contract BillyTheBull is IPuzzle {
         return success && !abi.decode(data, (bool));
     }
 
+    // @todo need to make this take in new price
     function _incrementNFTPrice() public returns (uint oldPrice) {
         oldPrice = nftPrice;
         nftPrice = nftPrice + 1e18;

