@@ -1,0 +1,36 @@
+{
+  "transactions": [
+    {
+      "hash": "0x2a22106ff60d3d579b8fd5313d3bab6744c587d03b6661bfa4204c7acd6134da",
+      "transactionType": "CALL",
+      "contractName": "NFTOutlet",
+      "contractAddress": "0xf9F656435493C58421cFe153E5936f0FafF8c05f",
+      "function": "changePaymentToken(address)",
+      "arguments": [
+        "0x6B175474E89094C44Da98b954EedeAC495271d0F"
+      ],
+      "transaction": {
+        "type": "0x02",
+        "from": "0x584258d4d63e116216eb74ba328e03486b3b3870",
+        "to": "0xf9f656435493c58421cfe153e5936f0faff8c05f",
+        "gas": "0xc4d9",
+        "value": "0x0",
+        "data": "0x4558d7170000000000000000000000006b175474e89094c44da98b954eedeac495271d0f",
+        "nonce": "0x1e",
+        "accessList": []
+      },
+      "additionalContracts": [],
+      "isFixedGasLimit": false
+    }
+  ],
+  "receipts": [],
+  "libraries": [],
+  "pending": [
+    "0x2a22106ff60d3d579b8fd5313d3bab6744c587d03b6661bfa4204c7acd6134da"
+  ],
+  "returns": {},
+  "timestamp": 1691337325,
+  "chain": 1,
+  "multi": false,
+  "commit": "2563a23"
+}

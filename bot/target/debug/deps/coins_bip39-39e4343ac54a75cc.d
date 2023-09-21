@@ -1,0 +1,9 @@
+/Users/zachobront/code/curta/bot/target/debug/deps/coins_bip39-39e4343ac54a75cc.rmeta: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/coins-bip39-0.3.0/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/coins-bip39-0.3.0/src/mnemonic.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/coins-bip39-0.3.0/src/wordlist/mod.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/coins-bip39-0.3.0/src/wordlist/english.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/coins-bip39-0.3.0/src/wordlist/./words/english.txt
+
+/Users/zachobront/code/curta/bot/target/debug/deps/coins_bip39-39e4343ac54a75cc.d: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/coins-bip39-0.3.0/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/coins-bip39-0.3.0/src/mnemonic.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/coins-bip39-0.3.0/src/wordlist/mod.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/coins-bip39-0.3.0/src/wordlist/english.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/coins-bip39-0.3.0/src/wordlist/./words/english.txt
+
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/coins-bip39-0.3.0/src/lib.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/coins-bip39-0.3.0/src/mnemonic.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/coins-bip39-0.3.0/src/wordlist/mod.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/coins-bip39-0.3.0/src/wordlist/english.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/coins-bip39-0.3.0/src/wordlist/./words/english.txt:

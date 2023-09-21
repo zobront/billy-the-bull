@@ -1,0 +1,11 @@
+/Users/zachobront/code/curta/bot/target/debug/deps/quote-cfaf2151593b601b.rmeta: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/ext.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/format.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/ident_fragment.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/to_tokens.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/runtime.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/spanned.rs
+
+/Users/zachobront/code/curta/bot/target/debug/deps/quote-cfaf2151593b601b.d: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/ext.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/format.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/ident_fragment.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/to_tokens.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/runtime.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/spanned.rs
+
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/lib.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/ext.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/format.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/ident_fragment.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/to_tokens.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/runtime.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/quote-1.0.32/src/spanned.rs:

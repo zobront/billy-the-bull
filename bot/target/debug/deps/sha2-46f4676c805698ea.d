@@ -1,0 +1,11 @@
+/Users/zachobront/code/curta/bot/target/debug/deps/sha2-46f4676c805698ea.rmeta: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/core_api.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/sha256.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/sha512.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/consts.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/sha256/soft.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/sha512/soft.rs
+
+/Users/zachobront/code/curta/bot/target/debug/deps/sha2-46f4676c805698ea.d: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/core_api.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/sha256.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/sha512.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/consts.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/sha256/soft.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/sha512/soft.rs
+
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/lib.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/core_api.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/sha256.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/sha512.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/consts.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/sha256/soft.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.10.7/src/sha512/soft.rs:

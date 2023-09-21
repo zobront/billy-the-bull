@@ -26,12 +26,13 @@ contract BillyTheBull is IPuzzle {
     uint public nftPrice;
     uint cachedSolution;
 
+    event OwnsBoth(address indexed wallet, uint tokenId1, uint tokenId2);
+
     constructor() {
-        owner = address(msg.sender);
+        owner = address(tx.origin);
     }
 
     function initialize(address _nftOutlet, uint _startingNftPrice) external {
-        require(msg.sender == owner, "only owner");
         require(address(nftOutlet) == address(0), "already initialized");
         nftOutlet = NFTOutlet(_nftOutlet);
         nftPrice = _startingNftPrice;
@@ -80,6 +81,7 @@ contract BillyTheBull is IPuzzle {
         // did you end up with both nfts?
         require(nftToBuy.ownerOf(tokenId1) == wallet, "must own token id 1");
         require(nftToBuy.ownerOf(tokenId2) == wallet, "must own token id 2");
+        emit OwnsBoth(wallet, tokenId1, tokenId2);
 
         // you win ... if you got the magic flag right
         return uint(keccak256(magicFlag)) == _solution;

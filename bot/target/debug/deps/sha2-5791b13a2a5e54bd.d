@@ -1,0 +1,10 @@
+/Users/zachobront/code/curta/bot/target/debug/deps/sha2-5791b13a2a5e54bd.rmeta: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/consts.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/sha256.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/sha512.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/sha256/soft.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/sha512/soft.rs
+
+/Users/zachobront/code/curta/bot/target/debug/deps/sha2-5791b13a2a5e54bd.d: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/consts.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/sha256.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/sha512.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/sha256/soft.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/sha512/soft.rs
+
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/lib.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/consts.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/sha256.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/sha512.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/sha256/soft.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sha2-0.9.9/src/sha512/soft.rs:

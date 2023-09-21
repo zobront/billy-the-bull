@@ -1,0 +1,11 @@
+/Users/zachobront/code/curta/bot/target/debug/deps/sec1-a1966bc65cf5e942.rmeta: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/point.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/error.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/parameters.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/private_key.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/traits.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/../README.md
+
+/Users/zachobront/code/curta/bot/target/debug/deps/sec1-a1966bc65cf5e942.d: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/point.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/error.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/parameters.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/private_key.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/traits.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/../README.md
+
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/lib.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/point.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/error.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/parameters.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/private_key.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/traits.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sec1-0.7.3/src/../README.md:

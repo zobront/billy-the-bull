@@ -1,0 +1,10 @@
+/Users/zachobront/code/curta/bot/target/debug/deps/tokio_tungstenite-158888e7bab7926b.rmeta: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/compat.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/connect.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/handshake.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/stream.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/tls.rs
+
+/Users/zachobront/code/curta/bot/target/debug/deps/tokio_tungstenite-158888e7bab7926b.d: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/compat.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/connect.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/handshake.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/stream.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/tls.rs
+
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/lib.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/compat.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/connect.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/handshake.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/stream.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-tungstenite-0.19.0/src/tls.rs:

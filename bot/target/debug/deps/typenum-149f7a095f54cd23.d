@@ -1,0 +1,18 @@
+/Users/zachobront/code/curta/bot/target/debug/deps/typenum-149f7a095f54cd23.rmeta: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/bit.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/int.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/marker_traits.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/operator_aliases.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/private.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/type_operators.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/uint.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/array.rs /Users/zachobront/code/curta/bot/target/debug/build/typenum-28968853d3e0c853/out/op.rs /Users/zachobront/code/curta/bot/target/debug/build/typenum-28968853d3e0c853/out/consts.rs
+
+/Users/zachobront/code/curta/bot/target/debug/deps/typenum-149f7a095f54cd23.d: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/bit.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/int.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/marker_traits.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/operator_aliases.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/private.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/type_operators.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/uint.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/array.rs /Users/zachobront/code/curta/bot/target/debug/build/typenum-28968853d3e0c853/out/op.rs /Users/zachobront/code/curta/bot/target/debug/build/typenum-28968853d3e0c853/out/consts.rs
+
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/lib.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/bit.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/int.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/marker_traits.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/operator_aliases.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/private.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/type_operators.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/uint.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/typenum-1.16.0/src/array.rs:
+/Users/zachobront/code/curta/bot/target/debug/build/typenum-28968853d3e0c853/out/op.rs:
+/Users/zachobront/code/curta/bot/target/debug/build/typenum-28968853d3e0c853/out/consts.rs:
+
+# env-dep:TYPENUM_BUILD_CONSTS=/Users/zachobront/code/curta/bot/target/debug/build/typenum-28968853d3e0c853/out/consts.rs
+# env-dep:TYPENUM_BUILD_OP=/Users/zachobront/code/curta/bot/target/debug/build/typenum-28968853d3e0c853/out/op.rs

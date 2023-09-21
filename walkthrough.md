@@ -1,138 +1,169 @@
-announce: @chainlight_io @junorouse
+Billy The Bull is entering Phase 2.
 
-reminder, share with security ppl
+That means it's time for me to share a walkthrough, and time for you to get to work solving it (48 hours left).
 
-...
+The goal of the puzzle: mint two rare Ripped Jesus NFTs without paying for them.
 
-if nobody has solved it:
-- talk a lot of shit :)
-- get more security ppl in who don't usually do curta
-- clues:
-    - past audit reports hold some answers (hats, etc)
-    - try catch article
-
+Sounds easy, but there are many challenges in your way...
 
 ***
 
-blah blah intro
+CHALLENGE 1: GET YOUR SOLUTION'S PREIMAGE
 
+Looking at the code, it's clear that our solution is the address of a contract we've deployed to solve the challenge.
 
-To solve this puzzle requires many breakthroughs, and the easiest way to approach them is to start with the end goal.
+Because Curta requires solution to be in `uint256` form, it's decoded into the address that's used.
 
-Let's start with the final outcome, and work backwards to see how we can get there.
+***
 
+This might make you think you can just pass `uint256(solution)` as the solution.
 
-CHALLENGE 1: We need to return a magic flag that is the preimage of our solution.
+But the final step of the puzzle is to check that the "magic flag" we returned is the preimage of our solution.
 
-We see that the solution is decoded into the wallet address that's used for the challenge.
+If we use `uint256(solution)`, there is no reasonable way to know the preimage.
 
-This might make you think you can just pass uint256(address) as the solution. But if we use this value, there is no way to know the preimage.
+***
 
-Fortunately, since we're decoding the solution as address(uint160(_solution)), we can pass a full 32 byte word as the solution. And if we understand how addresses are created on the EVM, we can find the preimage for this value.
+Fortunately, since we're decoding the solution as `address(uint160(_solution))`, we can pass a full 32 byte word as the solution.
 
-Addresses can be selected on the EVM in one of two ways:
+If we understand how addresses are created on the EVM, this is a value we can find the preimage for:
 
-1) CREATE: keccak256(x), where x is address of the creator + nonce of the creator. Shorten to 20 bytes.
+- IF CREATE: keccak256(x), where x is address of the creator + nonce of the creator. Shorten to 20 bytes.
+- IF CREATE2: keccak256(x), where x is 0xff + address of the creator + salt + init code. Shorten to 20 bytes.
 
-2) CREATE2: keccak256(x), where x is 0xff + address of the creator + salt + init code. Shorten to 20 bytes.
+In either case, we can use `x` as the magic flag, and pass the full 32 byte word as our solution.
 
-In either case, we can use x as the magic flag, and pass the full 32 byte word as our solution.
+***
 
-In my solution, I used CREATE2...
+CHALLENGE 2: GET BOTH NFTs BY CALLING MINT ONCE
 
-
-
-
-CHALLENGE 2: We need both NFTs immediately after minting just 1.
-
-We must mint two separate token IDs in order to pass the challenge, but only tokenId1 is minted.
+We must mint two separate token IDs in order to pass the challenge, but we only call `mint()` on tokenId1.
 
 If we look at the implementation of NFTOutlet.sol, we can see that it uses `safeMint()`.
 
-Looking at the safeMint() implementation, we can see that it first mints, and then performs the check.
+***
 
-This is a perfect setup for reentrancy, because we gain control flow after we've gotten the NFT.
+Looking at the `safeMint()` implementation, we can see that it first mints, and then performs the check.
+
+This is a perfect setup for reentrancy, because we gain control flow after we've gotten our first NFT.
+
+***
 
 When we reenter the second time, we already have token ID 1.
 
-If we flip the two token IDs around the second time, we'll then mint the original token ID 2, and by the time the reentered function call gets to the ownership check, we will hold both NFTs and it will pass.
+If we use token ID 2 and another value, we'll still fail the check at the end of the inner loop that we have both tokens.
 
+But if we flip the order of the two token IDs, then we'll mind token ID 2, and by the time the reentered function call gets to the ownership check, we will hold both NFTs and it will pass.
 
-CHALLENGE 3: We need to use the same solution when reentering, but can't reuse it.
+***
 
-This should be impossible. We've used the preimage for this address and have to use the same address again.
+CHALLENGE 3: WE CAN'T REUSE THE FLAG WHEN REENTERING
 
-And, it is impossible. There's no way to do it, and no way to get around it.
+We are forced to use the same solution when we reenter by the `noTampering` modifier.
+
+But we can't reuse the magic flag. The registry of used magic flags in the NFT Outlet cannot be edited.
+
+***
+
+This should be impossible. We've used the preimage for this address and have to use the same address again. There is no other preimage.
+
+And, it is impossible. There's no way to do it.
 
 But, fortunately, you don't have to.
 
-Many Curta players assume that verify() needs to pass.
+***
 
-But this isn't required. It just returns a boolean that is used by Curta (and reverts when going through the main Curta contract).
+Many Curta players assume that `verify()` needs to pass.
 
-But if we reenter into the puzzle directly, we can use a magic flag that doesn't pass, and it will simply return false.
+But this isn't required. It just returns a boolean that is used by Curta.
 
+This causes a revert when going through the main Curta contract, but not if `verify()` is called directly on the puzzle.
 
-CHALLENGE 4: The cost of the NFT is $1000+ USD, paid in a real stablecoin.
+This allows us to simply use a magic flag that doesn't pass, causing the inner call to return false.
+
+***
+
+CHALLENGE 4: THE NFT COSTS 1000 DAI
 
 No, the trick is not to simply send me $1000.
 
-What you'll notice if you read the contract carefully is that the _returnedFalse() check only happens if it returns the false value. If the call reverts, everything will move along normally.
+What you'll notice if you read the contract carefully is that the `_returnedFalse()` check only reverts if the call returns the false value. If the call reverts, everything will move along normally.
 
 This is great, except... how can you make it revert?
 
-If you read the function, you may think it's impossible.
+***
 
-There are three require statements, and all are impossible to trigger:
+Reading the function, you may think it's impossible.
+
+There are three require statements, all of which cannot be triggered:
 1) from == address(0) => this is the wallet address, so if it's address(0), it can't hold the code needed for the steps below (and it's impossible to know the preimage)
 2) keccak256(amount) = 0x420badbabe => you would have to know the preimage of the hash
 3) uint(uint32(amount)) <= 4294967295 => if we lower to 32 bits, we can't get a value higher than max uint32
 
+***
+
 But there is one other way to make the function revert.
 
-Try catch statements will revert if they expect a return value and none is given.
+Try catch statements will revert if they expect a return value and none is given: https://blog.theredguild.org/catch-me-if-you-can/
 
-So if we can make the transferFrom function have no return value, it'll revert and everything can pass.
+So if we can make the `transferFrom()` function give no return value, it'll revert and everything can pass.
 
-But how is this possible? All the ERC20 tokens that are valid assets return something from transferFrom.
-
-
-CHALLENGE 5: How can we get transferFrom to return nothing?
-
-If we look at the ERC20 spec, we can see that transferFrom must return a bool.
-
-Some ERC20s don't, but the valid assets in NFT Outlet all conform to the spec.
-
-But what about transferFrom on ERC721s? That doesn't return anything.
-
-Since all the ERC20s and ERC721s are stored in the same validAssets mapping, it means that an NFT can be subbed in as the paymentToken.
-
-Since they have a transferFrom function with the same signature, if it's use (and doesn't revert), it'll return nothing and revert in NFTOutlet.sol.
-
-Note that the NFT transfer has to succeed for this to happen (otherwise it'll revert on the call and be caught by the try catch block).
-
-So we need to own the NFT ID corresponding with the "price" of the payment token that should be sent.
-
-Fortunately, one of the NFT contracts has free open mints. So you can mint the NFT ID you need (plus the incremented version that is 1e18 higher for when you need to do the same thing while reentering), the transferFrom will succeed, the NFT Outlet function will revert because there's no return value, and the puzzle will keep moving.
-
-
-CHALLENGE 6: But how can you change the payment token to the NFT?
-
-The challenge begins with a very suspicious delegate call. But all the storage variables are checked after the call to ensure they match with the values before. Nothing can be changed.
-
-However, there's nothing stopping you from changing them midflight :)
-
-This allows you to change the owner of the contract to yourself, then call `changePaymentToken()` to change it to the NFT, and then change the owner back to the original so the postflight check passes.
-
-This is the final piece of the puzzle, and allows you to pass the challenge.
-
+But how is this possible? All the ERC20 tokens that are valid assets return a bool from `transferFrom()`.
 
 ***
 
-To summarize the attack:
-- Deploy an attacker contract and save the preimage as magic flag
-- Upon deployment, mint yourself free NFTs with indexes corresponding to the current NFT price and price + 1e18
-- When `getMagicFlag()` is called on the attacker contract when in the outer loop, use storage collision to set yourself as owner of the puzzle, change the payment token of NFT Outlet to the free NFT, and change the owner back. When in the inner loop, simply return a random unused byte string (because the magic flag doesn't matter).
-- When safeMint() is called on the NFT, use the onERC721Received check to call `verify()` on the puzzle again with the same solution, but with the two token IDs flipped in order
+CHALLENGE 5: TRANSFER FROM WITH NO RETURN VALUE
 
-You can find my coded solution at github.com/sdfljksflk
+If we look at the ERC20 spec, we can see that `transferFrom()` must return a bool.
+
+Some ERC20s don't, but the valid assets in NFT Outlet all conform to the spec.
+
+But what about `transferFrom()` on ERC721s? The signature matches exactly, but it doesn't return anything...
+
+***
+
+Since all the ERC20s and ERC721s are stored in the same `validAssets` mapping, it means that an NFT can be subbed in as the paymentToken.
+
+Since they have a `transferFrom()` function with the same signature, if this function is called (and doesn't revert), it'll return nothing.
+
+***
+
+Note that the NFT transfer has to succeed for this to happen, otherwise it'll revert on the call and be caught by the try catch block.
+
+So we need to own the NFT ID corresponding with the "price" of the payment token that should be sent.
+
+***
+
+Fortunately, you can dig up the other valid assets by finding the constructor arguments from when NFT Outlet was deployed.
+
+If you do, you'll find that the Free Willy NFT contract is verified on Etherscan and has free open mints.
+
+***
+
+So you can mint the NFT ID you need (plus the incremented version that is 1e18 higher for when you need to do the same thing while reentering), `transferFrom()` will succeed, the NFT Outlet function will revert because there's no return value, and the puzzle will keep moving.
+
+***
+
+CHALLENGE 6: CHANGING PAYMENT TOKEN TO THE NFT
+
+All this assumes we can change the payment token. But it can only be changed by the owner of the puzzle, which is an address I own.
+
+The challenge begins with a very suspicious delegate call, but all the storage variables are checked after the call to ensure they match with the values before. Nothing can be changed.
+
+***
+
+However, there's nothing stopping you from changing them midflight.
+
+This is loosely based on issue 3.2.6 that @RustyRabbit and I found in Sablier: https://github.com/sablier-labs/audits/blob/main/v2-periphery/cantina-2023-07-11.pdf
+
+With this ability, we can change the owner of the contract to ourselves, call `changePaymentToken()` to change it to the Free Willy NFT, and then change the owner back to the original so the postflight check passes.
+
+***
+
+This is the final piece of the puzzle needed to solve the challenge.
+
+I thought it would definitely take 4-6 hours. @lj1nu managed to solve all of this and code it up in 1:52:00. Truly impressive.
+
+Even with everything in this thread, this is a fun and challenging one to write up a solution for. There are 48 hours left to do that, then I'll release a full coded solution.
+
+🫡

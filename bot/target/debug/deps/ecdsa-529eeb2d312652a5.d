@@ -1,0 +1,11 @@
+/Users/zachobront/code/curta/bot/target/debug/deps/ecdsa-529eeb2d312652a5.rmeta: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/recovery.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/der.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/hazmat.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/signing.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/verifying.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/../README.md
+
+/Users/zachobront/code/curta/bot/target/debug/deps/ecdsa-529eeb2d312652a5.d: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/recovery.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/der.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/hazmat.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/signing.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/verifying.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/../README.md
+
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/lib.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/recovery.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/der.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/hazmat.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/signing.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/verifying.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ecdsa-0.16.8/src/../README.md:

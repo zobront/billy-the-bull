@@ -1,0 +1,9 @@
+/Users/zachobront/code/curta/bot/target/debug/deps/ethers_signers-6bbc41c5afc60762.rmeta: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ethers-signers-2.0.8/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ethers-signers-2.0.8/src/wallet/mod.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ethers-signers-2.0.8/src/wallet/mnemonic.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ethers-signers-2.0.8/src/wallet/private_key.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ethers-signers-2.0.8/src/../README.md
+
+/Users/zachobront/code/curta/bot/target/debug/deps/ethers_signers-6bbc41c5afc60762.d: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ethers-signers-2.0.8/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ethers-signers-2.0.8/src/wallet/mod.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ethers-signers-2.0.8/src/wallet/mnemonic.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ethers-signers-2.0.8/src/wallet/private_key.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ethers-signers-2.0.8/src/../README.md
+
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ethers-signers-2.0.8/src/lib.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ethers-signers-2.0.8/src/wallet/mod.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ethers-signers-2.0.8/src/wallet/mnemonic.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ethers-signers-2.0.8/src/wallet/private_key.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ethers-signers-2.0.8/src/../README.md:

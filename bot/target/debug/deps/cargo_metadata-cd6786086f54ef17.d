@@ -1,0 +1,9 @@
+/Users/zachobront/code/curta/bot/target/debug/deps/cargo_metadata-cd6786086f54ef17.rmeta: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cargo_metadata-0.15.4/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cargo_metadata-0.15.4/src/dependency.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cargo_metadata-0.15.4/src/diagnostic.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cargo_metadata-0.15.4/src/errors.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cargo_metadata-0.15.4/src/messages.rs
+
+/Users/zachobront/code/curta/bot/target/debug/deps/cargo_metadata-cd6786086f54ef17.d: /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cargo_metadata-0.15.4/src/lib.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cargo_metadata-0.15.4/src/dependency.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cargo_metadata-0.15.4/src/diagnostic.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cargo_metadata-0.15.4/src/errors.rs /Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cargo_metadata-0.15.4/src/messages.rs
+
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cargo_metadata-0.15.4/src/lib.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cargo_metadata-0.15.4/src/dependency.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cargo_metadata-0.15.4/src/diagnostic.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cargo_metadata-0.15.4/src/errors.rs:
+/Users/zachobront/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cargo_metadata-0.15.4/src/messages.rs:
